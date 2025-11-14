@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 from udp_client import get_response
 from flask_cors import CORS
-import os
 
 _, _, students_info = get_response()
 
@@ -70,8 +69,7 @@ def get_class_average():
 # http://127.0.0.1:5000/api/average
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
 
 # Running on http://127.0.0.1:5000 → This is your server URL.
 # Debug mode: on -> Flask will automatically reload if you change your code

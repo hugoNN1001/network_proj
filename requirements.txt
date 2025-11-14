@@ -1,4 +1,4 @@
-flask
-flask-cors
-udp_client
-requests
+Flask==3.1.2
+flask-cors==3.1.1
+requests==2.31.0
+gunicorn==20.1.0
