@@ -25,11 +25,11 @@ loadStudents();
 
 async function loadStudents() {
   // Fetch student list
-  const response = await fetch("https://network-proj-5.onrender.com/api/studentlist"); //  fetch("http://127.0.0.1:5000/api/studentlist");
+  const response = await fetch("/api/studentlist"); //  fetch("http://127.0.0.1:5000/api/studentlist");
   const data = await response.json();
 
   // Fetch average
-  const avgResponse = await fetch("https://network-proj-5.onrender.com/api/average"); // fetch("http://127.0.0.1:5000/api/average");
+  const avgResponse = await fetch("/api/average"); // fetch("http://127.0.0.1:5000/api/average");
   const avgData = await avgResponse.json();
   const average = avgData.average;
 
