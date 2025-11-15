@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, render_template
 from udp_client import get_response
 from flask_cors import CORS
 import os
@@ -70,12 +70,8 @@ def get_class_average():
 # http://127.0.0.1:5000/api/average
 
 @app.route("/")
-def homepage():
-    return send_from_directory("static", "index.html")
-
-@app.route("/<path:path>")
-def static_files(path):
-    return send_from_directory("static", path)
+def index():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     # Get PORT from Render environment, default to 5000 for local testing
@@ -84,6 +80,7 @@ if __name__ == "__main__":
 
 # Running on http://127.0.0.1:5000 → This is your server URL.
 # Debug mode: on -> Flask will automatically reload if you change your code
+
 
 
 
