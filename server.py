@@ -69,6 +69,7 @@ def get_class_average():
     return jsonify({"average": average})
 # http://127.0.0.1:5000/api/average
 
+# Serve the frontend HTML
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -80,7 +81,6 @@ if __name__ == "__main__":
 
 # Running on http://127.0.0.1:5000 → This is your server URL.
 # Debug mode: on -> Flask will automatically reload if you change your code
-
 
 
 
