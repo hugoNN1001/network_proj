@@ -1,0 +1,78 @@
+/*
+async function loadStudents() {
+  const response = await fetch("http://127.0.0.1:5000/api/studentlist");
+  const data = await response.json();
+
+  const tableContainer = document.getElementById("student-table");
+  let html = `
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr><th>Student Name</th><th>Mark</th></tr>
+      </thead>
+      <tbody>
+  `;
+
+  for (const [name, mark] of Object.entries(data)) {
+    html += `<tr><td>${name}</td><td>${mark}</td></tr>`;
+  }
+
+  html += "</tbody></table>";
+  tableContainer.innerHTML = html;
+}
+
+loadStudents();
+*/
+
+async function loadStudents() {
+  // Fetch student list
+  const response = await fetch("https://network-proj-2.onrender.com/api/studentlist"); //  fetch("http://127.0.0.1:5000/api/studentlist");
+  const data = await response.json();
+
+  // Fetch average
+  const avgResponse = await fetch("https://network-proj-2.onrender.com/api/average"); // fetch("http://127.0.0.1:5000/api/average");
+  const avgData = await avgResponse.json();
+  const average = avgData.average;
+
+  // Display class average above the table
+  let html = `<p class="fs-5 fw-bold text-center">Class Average: ${average}</p>`;
+
+  const tableContainer = document.getElementById("student-table");
+  html += `
+    <table id="student-pdf-table" table class="table table-hover table-striped align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>Student Name</th>
+          <th>Mark</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  for (const [name, mark] of Object.entries(data)) {
+    html += `<tr class="text-center"><td>${name}</td><td>${mark}</td></tr>`;
+  }
+
+  html += "</tbody></table>";
+  tableContainer.innerHTML = html;
+
+  // PDF functionality
+  document.getElementById("save-pdf").addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("Student Marks List", 105, 10, null, null, "center");
+
+    // Optional: Add class average
+    doc.text(`Class Average: ${average}`, 105, 20, null, null, "center");
+
+    // Add table, Convert HTML table to PDF table
+    doc.autoTable({ 
+      html: "#student-pdf-table", 
+      startY: 30 });
+    
+    // Save file
+    doc.save("student_marks.pdf");
+  });
+}
+
+loadStudents();
